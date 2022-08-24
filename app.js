@@ -2,13 +2,10 @@ import TodoList from "./todo-list.js";
 
 const form = document.querySelector(".todo-form");
 const todoList = document.querySelector(".todo-list");
-
 const todos = new TodoList();
+
 const render = function(items) {
-
-   const itemsArr = items.map(todo => `<li id="${todo.id}" >${todo.value}</li>`).join("");
-
-   todoList.innerHTML = itemsArr
+  todoList.innerHTML = items.map(todo => `<li id="${todo.id}" >${todo.value}</li>`).join("");
 }
 
 const getFromLocalStorage = function() {
@@ -19,7 +16,7 @@ const getFromLocalStorage = function() {
     // turns the string version of the data object back into an object
     data = JSON.parse(data)
     render(data.todos) // passes render function the array of objects
-    todos.setAllData(data) // calls function and passes data object
+    todos.setAllData(data) // calls function and passes updated data object back to class
   }
 }
 

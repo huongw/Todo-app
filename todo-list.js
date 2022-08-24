@@ -5,9 +5,9 @@ export default class TodoList {
   }
 
   addItem(value) {
-    const id = this.id
+    let id = this.id
     this.todos.push({id, value})
-    this.id += 1
+    id += 1
   }
 
   deleteItem(id) {
