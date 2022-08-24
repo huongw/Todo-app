@@ -1,32 +1,74 @@
 export default class TodoList {
-  constructor() {
-    this.todos = []
-    this.id = 1
+  constructor(todoList) {
+    this.todos = [];
+    this.nextId = 1;
+    this.todoList = todoList;
   }
 
   addItem(value) {
-    let id = this.id
-    this.todos.push({id, value})
-    id += 1
+    this.todos.push({ id: this.nextId, value });
+    this.nextId += 1;
   }
 
   deleteItem(id) {
-    const updateTodos = this.todos.filter(todo => todo.id !== id);
+    const updateTodos = this.todos.filter((todo) => todo.id !== id);
 
-    this.todos = updateTodos
+    this.todos = updateTodos;
   }
 
   setAllData(data) {
-    // the empty array within the class now becomes the updated array
-    this.todos = data.todos
-    // the id of 1 now becomes the updated id 
-    this.id = data.id
+    this.todos = data.todos;
+    this.nextId = data.nextId;
   }
 
   getAllData() {
-    const data = {};
-    data["todos"] = this.todos;
-    data["id"] = this.id;
-    return data
+    const data = {
+      todos: this.todos,
+      nextId: this.nextId
+    };
+
+    return data;
+  }
+
+  getFromLocalStorage() {
+    let data = localStorage.getItem("todos");
+
+    if (data) {
+      data = JSON.parse(data);
+      this.todos = data.todos;
+      this.nextId = data.nextId;
+    }
+  }
+
+  saveToLocalStorage() {
+    const data = {
+      todos: this.todos,
+      nextId: this.nextId,
+    };
+
+    localStorage.setItem("todos", JSON.stringify(data));
+  }
+
+  renderTodos() {
+    this.todoList.innerHTML = this.todos
+      .map((todo) => `<li id="${todo.id}" >${todo.value}</li>`)
+      .join("");
+  }
+
+  initialLoad() {
+    this.getFromLocalStorage();
+    this.renderTodos(this.todoList);
+  }
+
+  delete(id) {
+    this.deleteItem(id);
+    this.saveToLocalStorage();
+    this.renderTodos(this.todoList);
+  }
+
+  saveAndReload(todo) {
+    this.addItem(todo);
+    this.saveToLocalStorage();
+    this.renderTodos(this.todoList);
   }
 }
