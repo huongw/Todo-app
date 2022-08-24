@@ -19,7 +19,7 @@ const getFromLocalStorage = function() {
     // turns the string version of the data object back into an object
     data = JSON.parse(data)
     render(data.todos) // passes render function the array of objects
-    todos.loadFromData(data) // calls function and passes data object
+    todos.setAllData(data) // calls function and passes data object
   }
 }
 
@@ -32,10 +32,9 @@ const addToLocalStorage = function(todos) {
 }
 
 todoList.addEventListener("click", (e) => {
-  console.log("clicked", e.target.id)
   todos.deleteItem(parseInt(e.target.id))
 
-  addToLocalStorage(todos.serialize())
+  addToLocalStorage(todos.getAllData())
 })
 
 form.addEventListener("submit", (e) => {
@@ -48,7 +47,7 @@ form.addEventListener("submit", (e) => {
   todos.addItem(input.value)
 
   // data object with an id and key of "todos" and value of an array with objects
-  addToLocalStorage(todos.serialize())
+  addToLocalStorage(todos.getAllData())
 
   input.value = "";
 })

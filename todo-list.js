@@ -16,14 +16,14 @@ export default class TodoList {
     this.todos = updateTodos
   }
 
-  loadFromData(data) {
+  setAllData(data) {
     // the empty array within the class now becomes the updated array
     this.todos = data.todos
     // the id of 1 now becomes the updated id 
     this.id = data.id
   }
 
-  serialize() {
+  getAllData() {
     const data = {};
     data["todos"] = this.todos;
     data["id"] = this.id;
