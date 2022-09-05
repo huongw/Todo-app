@@ -16,20 +16,6 @@ export default class TodoList {
     this.todos = updateTodos;
   }
 
-  setAllData(data) {
-    this.todos = data.todos;
-    this.nextId = data.nextId;
-  }
-
-  getAllData() {
-    const data = {
-      todos: this.todos,
-      nextId: this.nextId
-    };
-
-    return data;
-  }
-
   getFromLocalStorage() {
     let data = localStorage.getItem("todos");
 
